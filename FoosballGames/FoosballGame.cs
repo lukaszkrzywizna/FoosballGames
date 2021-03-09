@@ -77,7 +77,7 @@ namespace FoosballGames
 
         private bool CalculateBlueTeamWon(FinishedSet thirdSet)
         {
-            return new[] {FirstSet.BlueTeamWon, SecondSet.BlueTeamWon, thirdSet.BlueTeamWon}.Sum(x => x ? 1 : 0) > 2;
+            return new[] {FirstSet.BlueTeamWon, SecondSet.BlueTeamWon, thirdSet.BlueTeamWon}.Sum(x => x ? 1 : 0) > 1;
         }
     }
 

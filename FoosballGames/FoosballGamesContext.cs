@@ -4,7 +4,9 @@ namespace FoosballGames
 {
     public class FoosballGamesContext : DbContext
     {
-        public FoosballGamesContext(DbContextOptions options) : base(options) { }
+        public FoosballGamesContext(DbContextOptions options) : base(options)
+        {
+        }
 
         public DbSet<DbFoosballGame> FoosballGames { get; set; } = null!;
 

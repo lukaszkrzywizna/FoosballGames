@@ -11,8 +11,8 @@ namespace FoosballGames
         {
             return new(
                 Id: game.Id,
-                Start: game.Start,
-                End: game.End,
+                Start: game.Start.ToDateTimeUnspecified(),
+                End: game.End?.ToDateTimeUnspecified(),
                 Sets: game.Sets.ToContract().ToArray(),
                 IsFinished: game.Sets is FinishedSets,
                 BlueTeamWon: game.Sets is FinishedSets finishedSets ? finishedSets.BlueTeamWon : (bool?) null

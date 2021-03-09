@@ -51,11 +51,14 @@ namespace FoosballGames.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoosballGames.WebApi v1"));
             }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

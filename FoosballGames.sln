@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoosballGames.Contracts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoosballGames.Infrastructure", "FoosballGames.Infrastructure\FoosballGames.Infrastructure.csproj", "{B2532D61-85A5-4E85-97E7-CDAB4529A6F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoosballGames.Tests", "FoosballGames.Tests\FoosballGames.Tests.csproj", "{8BFCC03A-D860-4CF3-B856-402800FB6BDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B2532D61-85A5-4E85-97E7-CDAB4529A6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2532D61-85A5-4E85-97E7-CDAB4529A6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2532D61-85A5-4E85-97E7-CDAB4529A6F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BFCC03A-D860-4CF3-B856-402800FB6BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BFCC03A-D860-4CF3-B856-402800FB6BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BFCC03A-D860-4CF3-B856-402800FB6BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BFCC03A-D860-4CF3-B856-402800FB6BDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

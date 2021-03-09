@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using FoosballGames.Infrastructure.Messaging;
-using NodaTime;
 
 namespace FoosballGames.Contracts
 {
@@ -10,8 +9,8 @@ namespace FoosballGames.Contracts
     public record FoosballGame
     (
         Guid Id,
-        LocalDateTime Start,
-        LocalDateTime? End,
+        DateTime Start,
+        DateTime? End,
         IReadOnlyCollection<Set> Sets,
         bool IsFinished,
         bool? BlueTeamWon

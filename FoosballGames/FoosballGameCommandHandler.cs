@@ -16,8 +16,8 @@ namespace FoosballGames
         public async Task HandleAsync(AddPointForTeam command)
         {
             var game = await foosballGamesRepository.Get(command.GameId);
-            game.AddPointForTeam(command.ForBlueTeam);
-            await foosballGamesRepository.Update(game);
+            var newGame = game.AddPointForTeam(command.ForBlueTeam);
+            await foosballGamesRepository.Update(newGame);
         }
 
         public async Task HandleAsync(CreateFoosballGame command)

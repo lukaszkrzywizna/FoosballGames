@@ -17,6 +17,7 @@ namespace FoosballGames.WebApi.Controllers
             this.commandQueryDispatcher = commandQueryDispatcher;
         }
 
+
         [HttpGet]
         public Task<FoosballGamesResponse> Get()
         {

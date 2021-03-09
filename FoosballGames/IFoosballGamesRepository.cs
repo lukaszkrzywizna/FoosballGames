@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NodaTime;
 using NodaTime.Serialization.JsonNet;
+using Npgsql;
 
 namespace FoosballGames
 {
@@ -23,7 +24,11 @@ namespace FoosballGames
         private readonly FoosballGamesContext context;
 
         private static readonly JsonSerializerSettings Settings =
-            new JsonSerializerSettings().ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+            new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                }
+                .ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
 
         public FoosballGamesRepository(FoosballGamesContext context)
         {
@@ -41,7 +46,7 @@ namespace FoosballGames
         public async Task<IReadOnlyCollection<FoosballGame>> GetAll()
         {
             var results = await context.FoosballGames.ToArrayAsync();
-            return results.Select(x => JsonConvert.DeserializeObject<FoosballGame>(x.JsonContent)).ToArray();
+            return results.Select(x => JsonConvert.DeserializeObject<FoosballGame>(x.JsonContent, Settings)!).ToArray();
         }
 
         public async Task Add(FoosballGame game)
@@ -49,7 +54,15 @@ namespace FoosballGames
             var content = JsonConvert.SerializeObject(game, Settings);
             var dbGame = new DbFoosballGame(game.Id, content);
             await context.AddAsync(dbGame);
-            await context.SaveChangesAsync();
+
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex) when (ex.InnerException is PostgresException {SqlState: "23505"})
+            {
+                throw new FoosballGameAlreadyExists();
+            }
         }
 
         public async Task Update(FoosballGame game)
