@@ -1,21 +1,18 @@
-﻿using System;
+﻿namespace FoosballGames;
 
-namespace FoosballGames
+public class DbFoosballGame
 {
-    public class DbFoosballGame
+    public Guid Id { get; private set; }
+    public string JsonContent { get; private set; }
+
+    public DbFoosballGame(Guid id, string jsonContent)
     {
-        public Guid Id { get; private set; }
-        public string JsonContent { get; private set; }
+        Id = id;
+        JsonContent = jsonContent;
+    }
 
-        public DbFoosballGame(Guid id, string jsonContent)
-        {
-            Id = id;
-            JsonContent = jsonContent;
-        }
-
-        public void UpdateContent(string content)
-        {
-            JsonContent = content;
-        }
+    public void UpdateContent(string content)
+    {
+        JsonContent = content;
     }
 }

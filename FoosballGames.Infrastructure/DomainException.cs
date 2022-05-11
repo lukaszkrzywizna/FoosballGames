@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace FoosballGames.Infrastructure;
 
-namespace FoosballGames.Infrastructure
+public class DomainException : Exception
 {
-    public class DomainException : Exception
+    public DomainException(string message) : base(message)
     {
-        public DomainException(string message) : base(message)
-        {
-        }
     }
 }

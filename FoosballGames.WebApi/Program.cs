@@ -1,17 +1,41 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using FoosballGames;
+using FoosballGames.Infrastructure.Messaging;
+using FoosballGames.WebApi;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
-namespace FoosballGames.WebApi
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+
+services.AddControllers();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+services.Configure<PostgreSqlSettings>(builder.Configuration.GetSection(nameof(PostgreSqlSettings)));
+services.AddScoped<ICommandQueryDispatcher>(sp => new CommandQueryDispatcher(sp.GetRequiredService));
+services.RegisterFoosballGamesComponents();
+services.AddDbContext<FoosballGamesContext>((sp, options) =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    var settings = sp.GetRequiredService<IOptions<PostgreSqlSettings>>().Value.BuildConnectionString();
+    options.UseNpgsql(settings,
+        b => b.MigrationsAssembly(typeof(FoosballGamesContext).GetTypeInfo().Assembly.FullName));
+});
+services.AddScoped<IFoosballGamesRepository, FoosballGamesRepository>();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
-    }
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+else
+    app.UseExceptionHandler("/error");
+
+app.UseHttpsRedirection();
+
+app.MapControllers();
+
+app.Run();

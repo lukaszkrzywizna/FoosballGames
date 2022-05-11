@@ -1,6 +1,5 @@
-﻿namespace FoosballGames.Infrastructure.Messaging
+﻿namespace FoosballGames.Infrastructure.Messaging;
+
+public interface IQuery<out TResponse>
 {
-    public interface IQuery<out TResponse>
-    {
-    }
 }

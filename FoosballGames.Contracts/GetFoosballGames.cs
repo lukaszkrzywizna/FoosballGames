@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using FoosballGames.Infrastructure.Messaging;
+﻿using FoosballGames.Infrastructure.Messaging;
 
-namespace FoosballGames.Contracts
-{
-    public record GetFoosballGames : IQuery<FoosballGamesResponse>
-    {
-    }
+namespace FoosballGames.Contracts;
 
-    public record FoosballGamesResponse(IReadOnlyCollection<FoosballGame> FoosballGames);
-}
+public record GetFoosballGames : IQuery<FoosballGamesResponse>;
+
+public record FoosballGamesResponse(IReadOnlyCollection<FoosballGame> FoosballGames);

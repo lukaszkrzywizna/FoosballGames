@@ -270,3 +270,7 @@ BenchmarkDotNet.Artifacts/
 # Services dependencies
 **/assets/*commandDependencies.json
 **/assets/*queryDependencies.json
+
+# Jetbrains Rider user's settings
+.idea/
+*.iws

@@ -1,76 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FoosballGames.Contracts.Exceptions;
+﻿using FoosballGames.Contracts.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NodaTime;
 using NodaTime.Serialization.JsonNet;
 using Npgsql;
 
-namespace FoosballGames
+namespace FoosballGames;
+
+public interface IFoosballGamesRepository
 {
-    public interface IFoosballGamesRepository
+    public Task<FoosballGame> Get(Guid id);
+    public Task<IReadOnlyCollection<FoosballGame>> GetAll();
+    public Task Add(FoosballGame game);
+    public Task Update(FoosballGame game);
+}
+
+public class FoosballGamesRepository : IFoosballGamesRepository
+{
+    private readonly FoosballGamesContext _context;
+
+    private static readonly JsonSerializerSettings Settings =
+        new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            }
+            .ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+
+    public FoosballGamesRepository(FoosballGamesContext context)
     {
-        public Task<FoosballGame> Get(Guid id);
-        public Task<IReadOnlyCollection<FoosballGame>> GetAll();
-        public Task Add(FoosballGame game);
-        public Task Update(FoosballGame game);
+        _context = context;
     }
 
-    public class FoosballGamesRepository : IFoosballGamesRepository
+    public async Task<FoosballGame> Get(Guid id)
     {
-        private readonly FoosballGamesContext context;
+        var result = await _context.FoosballGames.SingleOrDefaultAsync(s => s.Id == id);
+        if (result is null) throw new FoosballGameNotFound();
+        var content = JsonConvert.DeserializeObject<FoosballGame>(result.JsonContent, Settings);
+        return content!;
+    }
 
-        private static readonly JsonSerializerSettings Settings =
-            new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                }
-                .ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+    public async Task<IReadOnlyCollection<FoosballGame>> GetAll()
+    {
+        var results = await _context.FoosballGames.ToArrayAsync();
+        return results.Select(x => JsonConvert.DeserializeObject<FoosballGame>(x.JsonContent, Settings)!).ToArray();
+    }
 
-        public FoosballGamesRepository(FoosballGamesContext context)
+    public async Task Add(FoosballGame game)
+    {
+        var content = JsonConvert.SerializeObject(game, Settings);
+        var dbGame = new DbFoosballGame(game.Id, content);
+        await _context.AddAsync(dbGame);
+
+        try
         {
-            this.context = context;
+            await _context.SaveChangesAsync();
         }
-
-        public async Task<FoosballGame> Get(Guid id)
+        catch (Exception ex) when (ex.InnerException is PostgresException {SqlState: "23505"})
         {
-            var result = await context.FoosballGames.SingleOrDefaultAsync(s => s.Id == id);
-            if (result is null) throw new FoosballGameNotFound();
-            var content = JsonConvert.DeserializeObject<FoosballGame>(result.JsonContent, Settings);
-            return content!;
+            throw new FoosballGameAlreadyExists();
         }
+    }
 
-        public async Task<IReadOnlyCollection<FoosballGame>> GetAll()
-        {
-            var results = await context.FoosballGames.ToArrayAsync();
-            return results.Select(x => JsonConvert.DeserializeObject<FoosballGame>(x.JsonContent, Settings)!).ToArray();
-        }
-
-        public async Task Add(FoosballGame game)
-        {
-            var content = JsonConvert.SerializeObject(game, Settings);
-            var dbGame = new DbFoosballGame(game.Id, content);
-            await context.AddAsync(dbGame);
-
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex) when (ex.InnerException is PostgresException {SqlState: "23505"})
-            {
-                throw new FoosballGameAlreadyExists();
-            }
-        }
-
-        public async Task Update(FoosballGame game)
-        {
-            var content = JsonConvert.SerializeObject(game, Settings);
-            var dbEntity = context.FoosballGames.Local.Single(s => s.Id == game.Id);
-            dbEntity.UpdateContent(content);
-            await context.SaveChangesAsync();
-        }
+    public async Task Update(FoosballGame game)
+    {
+        var content = JsonConvert.SerializeObject(game, Settings);
+        var dbEntity = _context.FoosballGames.Local.Single(s => s.Id == game.Id);
+        dbEntity.UpdateContent(content);
+        await _context.SaveChangesAsync();
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using FoosballGames.Infrastructure.Messaging;
+﻿using FoosballGames.Infrastructure.Messaging;
 
-namespace FoosballGames.Contracts
-{
-    public record GetFoosballGame(Guid Id) : IQuery<FoosballGame>;
+namespace FoosballGames.Contracts;
 
-    public record FoosballGame
-    (
-        Guid Id,
-        DateTime Start,
-        DateTime? End,
-        IReadOnlyCollection<Set> Sets,
-        bool IsFinished,
-        bool? BlueTeamWon
-    );
+public record GetFoosballGame(Guid Id) : IQuery<FoosballGame>;
 
-    public record Set(int Number, bool IsFinished, byte ReadTeamScore, byte BlueTeamScore);
-}
+public record FoosballGame
+(
+    Guid Id,
+    DateTime Start,
+    DateTime? End,
+    IReadOnlyCollection<Set> Sets,
+    bool Finished,
+    Team? WinnerTeam
+);
+
+public record Set(int Number, bool Finished, byte RedTeamScore, byte BlueTeamScore);

@@ -1,11 +1,10 @@
 ﻿using FoosballGames.Infrastructure;
 
-namespace FoosballGames.Contracts.Exceptions
+namespace FoosballGames.Contracts.Exceptions;
+
+public class FoosballGameAlreadyExists : DomainException
 {
-    public class FoosballGameAlreadyExists : DomainException
+    public FoosballGameAlreadyExists() : base("Foosball game already exists.")
     {
-        public FoosballGameAlreadyExists() : base("Foosball game already exists.")
-        {
-        }
     }
 }

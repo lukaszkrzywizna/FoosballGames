@@ -1,11 +1,10 @@
 ﻿using FoosballGames.Infrastructure;
 
-namespace FoosballGames.Contracts.Exceptions
+namespace FoosballGames.Contracts.Exceptions;
+
+public class FoosballGameNotFound : DomainException
 {
-    public class FoosballGameNotFound : DomainException
+    public FoosballGameNotFound() : base("Foosball game not found.")
     {
-        public FoosballGameNotFound() : base("Foosball game not found.")
-        {
-        }
     }
 }

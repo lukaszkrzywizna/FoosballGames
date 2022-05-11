@@ -1,29 +1,27 @@
-﻿using System.Threading.Tasks;
-using FoosballGames.Contracts;
+﻿using FoosballGames.Contracts;
 using FoosballGames.Infrastructure.Messaging;
 
-namespace FoosballGames
+namespace FoosballGames;
+
+public class FoosballGameCommandHandler : ICommandHandler<AddPointForTeam>, ICommandHandler<CreateFoosballGame>
 {
-    public class FoosballGameCommandHandler : ICommandHandler<AddPointForTeam>, ICommandHandler<CreateFoosballGame>
+    private readonly IFoosballGamesRepository _foosballGamesRepository;
+
+    public FoosballGameCommandHandler(IFoosballGamesRepository foosballGamesRepository)
     {
-        private readonly IFoosballGamesRepository foosballGamesRepository;
+        _foosballGamesRepository = foosballGamesRepository;
+    }
 
-        public FoosballGameCommandHandler(IFoosballGamesRepository foosballGamesRepository)
-        {
-            this.foosballGamesRepository = foosballGamesRepository;
-        }
+    public async Task HandleAsync(AddPointForTeam command)
+    {
+        var game = await _foosballGamesRepository.Get(command.GameId);
+        var newGame = game.AddPointForTeam(command.Team);
+        await _foosballGamesRepository.Update(newGame);
+    }
 
-        public async Task HandleAsync(AddPointForTeam command)
-        {
-            var game = await foosballGamesRepository.Get(command.GameId);
-            var newGame = game.AddPointForTeam(command.ForBlueTeam);
-            await foosballGamesRepository.Update(newGame);
-        }
-
-        public async Task HandleAsync(CreateFoosballGame command)
-        {
-            var game = FoosballGame.Initialize(command);
-            await foosballGamesRepository.Add(game);
-        }
+    public async Task HandleAsync(CreateFoosballGame command)
+    {
+        var game = FoosballGame.Initialize(command);
+        await _foosballGamesRepository.Add(game);
     }
 }
