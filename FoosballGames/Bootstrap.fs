@@ -1,17 +1,14 @@
-﻿using FoosballGames.Contracts;
-using FoosballGames.Infrastructure.Messaging;
-using Microsoft.Extensions.DependencyInjection;
+module FoosballGames.Bootstrap
 
-namespace FoosballGames;
+open FoosballGames.Contracts
+open FoosballGames.Infrastructure.Messaging
+open Microsoft.Extensions.DependencyInjection
 
-public static class Bootstrap
-{
-    public static IServiceCollection RegisterFoosballGamesComponents(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection
+type IServiceCollection with
+    member this.RegisterFoosballGamesComponents() =
+        this
             .AddScoped<IQueryHandler<GetFoosballGames, FoosballGamesResponse>, FoosballGamesQueryHandler>()
             .AddScoped<IQueryHandler<GetFoosballGame, Contracts.FoosballGame>, FoosballGamesQueryHandler>()
             .AddScoped<ICommandHandler<AddPointForTeam>, FoosballGameCommandHandler>()
             .AddScoped<ICommandHandler<CreateFoosballGame>, FoosballGameCommandHandler>();
-    }
-}
+    

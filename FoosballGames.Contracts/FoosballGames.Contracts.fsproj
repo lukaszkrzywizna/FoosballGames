@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Exceptions\CannotAddPointToFinishedSet.fs" />
+        <Compile Include="Exceptions\FoosballGameAlreadyExists.fs" />
+        <Compile Include="Exceptions\FoosballGameNotFound.fs" />
+        <Compile Include="AddPointForTeam.fs" />
+        <Compile Include="CreateFoosballGame.fs" />
+        <Compile Include="GetFoosballGame.fs" />
+        <Compile Include="GetFoosballGames.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FoosballGames.Infrastructure\FoosballGames.Infrastructure.fsproj" />
+    </ItemGroup>
+
+</Project>
