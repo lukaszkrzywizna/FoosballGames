@@ -10,7 +10,7 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FoosballGames.WebApi", "Foo
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FoosballGames.Tests", "FoosballGames.Tests\FoosballGames.Tests.fsproj", "{52956A9F-1E1E-42A6-9CED-6AB8DF976110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoosballGames.Db", "FoosballGames.Db\FoosballGames.Db.csproj", "{D469158B-BA24-4488-A27C-C2DC81931F09}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FoosballGames.Db", "FoosballGames.Db\FoosballGames.Db.fsproj", "{7ACBC220-ACE8-407C-A37B-A0A8EB92E2DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +38,10 @@ Global
 		{52956A9F-1E1E-42A6-9CED-6AB8DF976110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52956A9F-1E1E-42A6-9CED-6AB8DF976110}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52956A9F-1E1E-42A6-9CED-6AB8DF976110}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D469158B-BA24-4488-A27C-C2DC81931F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D469158B-BA24-4488-A27C-C2DC81931F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D469158B-BA24-4488-A27C-C2DC81931F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D469158B-BA24-4488-A27C-C2DC81931F09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACBC220-ACE8-407C-A37B-A0A8EB92E2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACBC220-ACE8-407C-A37B-A0A8EB92E2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACBC220-ACE8-407C-A37B-A0A8EB92E2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACBC220-ACE8-407C-A37B-A0A8EB92E2DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

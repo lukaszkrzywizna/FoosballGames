@@ -89,3 +89,26 @@ type FoosballGame =
         let sets = this.Sets.AddPointForTeam team
         let endTime = if sets :? FinishedSets then Some(LocalDateTime.FromDateTime(DateTime.Now)) else None
         { this with Sets = sets; End = endTime }
+
+(*
+module FoosballGames.FoosballGame
+
+open System
+open FoosballGames.Contracts
+open NodaTime
+
+type RunningSet = {BlueTeamScore: byte; RedTeamScore: byte}
+type FinishedSet = {BlueTeamScore: byte; RedTeamScore: byte; Winner: Team}
+
+type Set =
+    | Running of RunningSet
+    | Finished of FinishedSet
+
+type Game =
+    | FirstSet
+    | SecondSet
+    | ThirdSet
+    | Finished
+
+type FoosballGame = { Id: Guid; Start: LocalDateTime; End: LocalDateTime; }
+*)

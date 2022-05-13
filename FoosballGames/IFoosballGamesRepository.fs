@@ -44,7 +44,7 @@ type FoosballGamesRepository(ctx: FoosballGamesContext) =
             }
         member this.Add game =
             let content = JsonConvert.SerializeObject(game, settings)
-            let dbGame = DbFoosballGame(game.Id, content)
+            let dbGame = {DbFoosballGame.Id = game.Id; JsonContent = content}
             task {
                 let! _ = ctx.FoosballGames.AddAsync(dbGame)
                 try

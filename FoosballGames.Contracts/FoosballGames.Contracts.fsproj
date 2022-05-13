@@ -13,6 +13,7 @@
         <Compile Include="CreateFoosballGame.fs" />
         <Compile Include="GetFoosballGame.fs" />
         <Compile Include="GetFoosballGames.fs" />
+        <Compile Include="Domain.fs" />
     </ItemGroup>
 
     <ItemGroup>
