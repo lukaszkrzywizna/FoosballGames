@@ -38,6 +38,8 @@ let main args =
     
     let app = builder.Build()
 
+    let root = CompositionRoot.composeRoot(app.Services)
+    
     if app.Environment.IsDevelopment()
     then
         app.UseSwagger()
@@ -49,6 +51,8 @@ let main args =
 
     app.MapControllers()
 
+    //app.MapGet("/", fun ctx -> ctx.Response.Redirect("/swagger"))
+    
     app.Run()
 
     exitCode

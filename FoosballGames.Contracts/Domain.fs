@@ -1,10 +1,10 @@
-﻿module FoosballGames.NewContracts
+﻿module FoosballGames.Contracts
 
 open System
 open System.Collections.Generic
 
 type Team =
-    | Read
+    | Red
     | Blue
 
 type CreateFoosballGame = {Id: Guid; Start: DateTime}
@@ -17,7 +17,7 @@ type Command =
 type Error =
     | GameNotFound
     | GameAlreadyExists
-    | CannotAddPointToFinishedSet
+    | GameFinished
 
 type HandleCommand = Command -> Error
 

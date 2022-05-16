@@ -1,4 +1,4 @@
-namespace FoosballGames.Contracts
+namespace FoosballGames.OldContracts
 
 open System
 open System.Collections.Generic

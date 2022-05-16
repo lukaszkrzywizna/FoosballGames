@@ -7,11 +7,11 @@
 
     <ItemGroup>
         <Compile Include="DomainException.fs" />
-        <Compile Include="Messaging\ICommand.fs" />
-        <Compile Include="Messaging\ICommandHandler.fs" />
-        <Compile Include="Messaging\IQuery.fs" />
-        <Compile Include="Messaging\IQueryHandler.fs" />
-        <Compile Include="Messaging\ICommandQueryDispatcher.fs" />
+        <Compile Include="Messaging.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FsToolkit.ErrorHandling" Version="2.13.0" />
     </ItemGroup>
 
 </Project>

@@ -6,13 +6,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="FoosballGame.fs" />
+      <Compile Include="FoosballGameOld.fs" />
+      <Compile Include="Domain.fs" />
       <Compile Include="FoosballCreationWorkflow.fs" />
+      <Compile Include="AddingPointWorkflow.fs" />
       <Compile Include="IFoosballGamesRepository.fs" />
       <Compile Include="TypeMappers.fs" />
       <Compile Include="FoosballGamesQueryHandler.fs" />
       <Compile Include="FoosballGameCommandHandler.fs" />
       <Compile Include="Bootstrap.fs" />
+      <Compile Include="CompositionRoot.fs" />
     </ItemGroup>
 
     <ItemGroup>

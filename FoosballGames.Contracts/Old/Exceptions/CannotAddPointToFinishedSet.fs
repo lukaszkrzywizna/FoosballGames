@@ -1,4 +1,4 @@
-namespace FoosballGames.Contracts.Exceptions
+namespace FoosballGames.OldContracts.Exceptions
 
 open FoosballGames.Infrastructure
 
