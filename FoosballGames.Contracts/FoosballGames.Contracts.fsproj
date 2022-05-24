@@ -7,13 +7,6 @@
 
     <ItemGroup>
         <Compile Include="Domain.fs" />
-        <Compile Include="Old\AddPointForTeam.fs" />
-        <Compile Include="Old\CreateFoosballGame.fs" />
-        <Compile Include="Old\GetFoosballGame.fs" />
-        <Compile Include="Old\GetFoosballGames.fs" />
-        <Compile Include="Old\Exceptions\CannotAddPointToFinishedSet.fs" />
-        <Compile Include="Old\Exceptions\FoosballGameAlreadyExists.fs" />
-        <Compile Include="Old\Exceptions\FoosballGameNotFound.fs" />
     </ItemGroup>
 
     <ItemGroup>

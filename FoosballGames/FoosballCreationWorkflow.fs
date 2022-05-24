@@ -18,19 +18,15 @@ let initializeGame (foosballGameExists: bool) (cmd: CreateFoosballGame) : Result
 
 let initialize
     (gameExists: Guid -> bool Task)
-    (addGame: FoosballGame -> Task)
+    (addGame: FoosballGame -> Task<Result<unit, Error>>)
     (cmd: CreateFoosballGame)
     : Task<Result<unit, Error>> =
 
     task {
         let! exists = gameExists cmd.Id
-        
+
         return!
             match initializeGame exists cmd with
-            | Ok game ->
-                task {
-                    let! _ = addGame game
-                    return Ok()
-                }
+            | Ok game -> task { return! addGame game }
             | Error error -> Error error |> Task.FromResult
     }

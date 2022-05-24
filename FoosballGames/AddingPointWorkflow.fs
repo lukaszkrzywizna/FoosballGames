@@ -57,8 +57,20 @@ let addPointToGame (game: FoosballGame option) (cmd: AddPointForTeam) : Result<F
                     ThirdSet { t with ThirdSet = r }
             {game with Sets = sets} |> Ok    
 
-let addPoint (findGame: Guid -> FoosballGame option Task) (cmd: AddPointForTeam) : Task<Result<FoosballGame, Error>> =
+let addPoint
+    (findGame: Guid -> FoosballGame option Task)
+    (updateGame: FoosballGame -> Task)
+    (cmd: AddPointForTeam)
+    : Task<Result<unit, Error>> =
     task {
         let! game = findGame cmd.GameId
-        return addPointToGame game cmd
+        let newGame = addPointToGame game cmd
+        return!
+            match newGame with
+            | Ok g ->
+                task {
+                    let! _ = updateGame g
+                    return Ok ()
+                }
+            | Error e -> Error e |> Task.FromResult
     }

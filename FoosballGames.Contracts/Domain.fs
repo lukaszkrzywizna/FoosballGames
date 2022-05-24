@@ -2,6 +2,7 @@
 
 open System
 open System.Collections.Generic
+open System.Threading.Tasks
 
 type Team =
     | Red
@@ -30,8 +31,8 @@ type FoosballGame =
       Finished: bool
       Winner: Team option }
     
-type GetFoosballGame = Guid -> FoosballGame
-type GetFoosballGames = Guid seq -> FoosballGame seq
+type GetFoosballGame = Guid -> Task<FoosballGame>
+type GetFoosballGames = Guid seq -> Task<FoosballGame seq>
 
 type Queries<'t> =
     | GetGame of (GetFoosballGame -> 't)

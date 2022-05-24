@@ -13,7 +13,6 @@
       <Compile Include="IFoosballGamesRepository.fs" />
       <Compile Include="TypeMappers.fs" />
       <Compile Include="FoosballGamesQueryHandler.fs" />
-      <Compile Include="FoosballGameCommandHandler.fs" />
       <Compile Include="Bootstrap.fs" />
       <Compile Include="CompositionRoot.fs" />
     </ItemGroup>
